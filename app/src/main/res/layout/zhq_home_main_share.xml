@@ -1,13 +1,239 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.umeng.soexample.share.HomeActivity">
+    android:background="@color/umeng_background"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <include
+        android:id="@+id/title_bar"
+        layout="@layout/zhq_titlebar_share"
+        android:layout_width="match_parent"
+        android:layout_height="54dp" />
+
+    <LinearLayout
+        android:id="@+id/buttongroup"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:layout_below="@id/title_bar"
+        android:layout_marginTop="15dp"
+        android:orientation="vertical">
 
-</LinearLayout>
+        <RelativeLayout
+            android:id="@+id/share"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/umeng_white">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/zhq_fenxiang" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="56dp"
+                android:text="分享"
+                android:textColor="@color/umeng_text_color"
+                android:textSize="17sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="56dp"
+                android:background="@color/umeng_divide" />
+
+            <ImageView
+                android:layout_width="8dp"
+                android:layout_height="14dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:layout_marginRight="15dp"
+                android:src="@drawable/zhq_umeng_arrow" />
+
+            <TextView
+                android:id="@+id/umeng_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="60dp"
+                android:background="@drawable/zhq_btnbg"
+                android:padding="6dp"
+                android:text="分享菜单模板"
+                android:textColor="@color/umeng_blue"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/auth"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/umeng_white">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/zhq_shouquan" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="56dp"
+                android:text="授权（第三方登录）"
+                android:textColor="@color/umeng_text_color"
+                android:textSize="17sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="56dp"
+                android:background="@color/umeng_divide" />
+
+            <ImageView
+                android:layout_width="8dp"
+                android:layout_height="25dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:layout_marginRight="15dp"
+                android:src="@drawable/zhq_umeng_arrow" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/getinfo"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/umeng_white">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/zhq_huoqu" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="56dp"
+                android:text="获取用户信息"
+                android:textColor="@color/umeng_text_color"
+                android:textSize="17sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="56dp"
+                android:background="@color/umeng_divide" />
+
+            <ImageView
+                android:layout_width="8dp"
+                android:layout_height="25dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:layout_marginRight="15dp"
+                android:src="@drawable/zhq_umeng_arrow" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/check"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/umeng_white">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/zhq_zijian" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="56dp"
+                android:text="自检工具"
+                android:textColor="@color/umeng_text_color"
+                android:textSize="17sp" />
+
+            <ImageView
+                android:layout_width="8dp"
+                android:layout_height="25dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:layout_marginRight="15dp"
+                android:src="@drawable/zhq_umeng_arrow" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/buttongroup"
+        android:layout_marginTop="15dp"
+        android:background="@color/umeng_white"
+        android:orientation="vertical"
+        android:weightSum="4">
+
+        <RelativeLayout
+            android:id="@+id/update"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_weight="1"
+            android:background="@color/umeng_white">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/zhq_gengxin" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="56dp"
+                android:text="@string/umeng_home_update"
+                android:textColor="@color/umeng_text_color"
+                android:textSize="17sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="56dp"
+                android:background="@color/umeng_divide" />
+
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="56dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/umeng_update_content"
+            android:textColor="@color/umeng_text_color"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+
+</RelativeLayout>

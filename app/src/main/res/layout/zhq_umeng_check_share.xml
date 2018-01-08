@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/umeng_white"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/title_bar"
+        layout="@layout/zhq_titlebar_share"
+        android:layout_width="match_parent"
+        android:layout_height="54dp" />
+
+    <EditText
+        android:id="@+id/editcheck"
+        android:layout_width="240dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/title_bar"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/zhq_edit_view_bg"
+        android:editable="false"
+        android:hint="选择检查项"
+        android:paddingLeft="5dp" />
+
+    <Button
+        android:id="@+id/checkbtn"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_alignTop="@id/editcheck"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@id/editcheck"
+        android:background="@drawable/zhq_editbg"
+        android:text="检查"
+        android:textColor="@color/umeng_white" />
+
+    <LinearLayout
+        android:id="@+id/list"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/editcheck"
+        android:layout_below="@id/editcheck"
+        android:background="@color/umeng_white"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <RelativeLayout
+            android:id="@+id/checksign"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="-1dp"
+            android:background="@drawable/umeng_socialize_edit_bg">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="5dp"
+                android:text="@string/umeng_check_sign"
+                android:textColor="@color/umeng_text_color"
+                android:textSize="18sp" />
+            <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:background="@color/umeng_divide"/>-->
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/checksina"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="-1dp"
+            android:background="@drawable/umeng_socialize_edit_bg">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="5dp"
+                android:text="@string/umeng_check_sina"
+                android:textColor="@color/umeng_text_color"
+                android:textSize="18sp" />
+            <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:background="@color/umeng_divide"/>-->
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/checkwx"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="-1dp"
+            android:background="@drawable/umeng_socialize_edit_bg">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="5dp"
+                android:text="@string/umeng_check_wx"
+                android:textColor="@color/umeng_text_color"
+                android:textSize="18sp" />
+            <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:background="@color/umeng_divide"/>-->
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/checkalipay"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="-1dp"
+            android:background="@drawable/umeng_socialize_edit_bg">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="5dp"
+                android:text="@string/umeng_check_alipay"
+                android:textColor="@color/umeng_text_color"
+                android:textSize="18sp" />
+            <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:background="@color/umeng_divide"/>-->
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/checkqq"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="-1dp"
+            android:background="@drawable/umeng_socialize_edit_bg">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="5dp"
+                android:text="@string/umeng_check_qq"
+                android:textColor="@color/umeng_text_color"
+                android:textSize="18sp" />
+            <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:background="@color/umeng_divide"/>-->
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/checkfb"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="-1dp"
+            android:background="@drawable/umeng_socialize_edit_bg">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="5dp"
+                android:text="@string/umeng_check_fb"
+                android:textColor="@color/umeng_text_color"
+                android:textSize="18sp" />
+            <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:background="@color/umeng_divide"/>-->
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/checkvk"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="-1dp"
+            android:background="@drawable/umeng_socialize_edit_bg">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="5dp"
+                android:text="@string/umeng_check_vk"
+                android:textColor="@color/umeng_text_color"
+                android:textSize="18sp" />
+            <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:background="@color/umeng_divide"/>-->
+        </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>
