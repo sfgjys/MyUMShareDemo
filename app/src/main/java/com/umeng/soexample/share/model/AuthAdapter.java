@@ -30,6 +30,7 @@ public class AuthAdapter extends BaseAdapter {
     private Context mContext;
     private Activity mActivity;
     private ProgressDialog dialog;
+
     public AuthAdapter(Context context, ArrayList<SnsPlatform> list) {
         this.list = list;
         this.mContext = context.getApplicationContext();
@@ -57,10 +58,14 @@ public class AuthAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = LayoutInflater.from(mContext).inflate(R.layout.zhq_app_authadapter_share, null);
         }
+
+        // 判断某个平台是否已经授权了
         final boolean isauth = UMShareAPI.get(mContext).isAuthorize(mActivity, list.get(position).mPlatform);
         ImageView img = (ImageView) convertView.findViewById(R.id.adapter_image);
+        // 使用某个平台的图标
         img.setImageResource(ResContainer.getResourceId(mContext, "drawable", list.get(position).mIcon));
         TextView tv = (TextView) convertView.findViewById(R.id.name);
+        // 使用某个平台的名字
         tv.setText(list.get(position).mShowWord);
         TextView authBtn = (TextView) convertView.findViewById(R.id.auth_button);
         if (isauth) {
@@ -72,8 +77,10 @@ public class AuthAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 if (isauth) {
+                    // 删除某个平台的授权
                     UMShareAPI.get(mContext).deleteOauth(mActivity, list.get(position).mPlatform, authListener);
                 } else {
+                    // 开启某个平台的授权
                     UMShareAPI.get(mContext).doOauthVerify(mActivity, list.get(position).mPlatform, authListener);
                 }
             }
@@ -87,6 +94,9 @@ public class AuthAdapter extends BaseAdapter {
         return convertView;
     }
 
+    /**
+     * 变量的描述: 授权相关操作结果监听对象
+     */
     UMAuthListener authListener = new UMAuthListener() {
         @Override
         public void onStart(SHARE_MEDIA platform) {

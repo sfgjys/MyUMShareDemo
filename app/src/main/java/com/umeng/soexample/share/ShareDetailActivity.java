@@ -47,13 +47,14 @@ public class ShareDetailActivity extends Activity {
     private ShareTypeAdapter shareAdapter;
     public ArrayList<String> styles = new ArrayList<String>();
     private SHARE_MEDIA share_media;
-    private UMImage imageurl,imagelocal;
+    private UMImage imageurl, imagelocal;
     private UMVideo video;
     private UMusic music;
     private UMEmoji emoji;
     private UMWeb web;
     private File file;
     private ProgressDialog dialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,85 +62,85 @@ public class ShareDetailActivity extends Activity {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(getResources().getColor(R.color.umeng_blue));
-
         }
         setContentView(R.layout.zhq_share_detail_share);
+        // 获取某个平台的对象
         share_media = (SHARE_MEDIA) getIntent().getSerializableExtra("platform");
         listView = (ListView) findViewById(R.id.list);
-        initStyles(share_media);
+        initStyles(share_media);// 设置各个平台能分享的形式
         initMedia();
+
         dialog = new ProgressDialog(this);
-        shareAdapter  = new ShareTypeAdapter(this,styles);
+
+        // 显示各个平台能分享的形式
+        shareAdapter = new ShareTypeAdapter(this, styles);
         listView.setAdapter(shareAdapter);
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (styles.get(position).equals(StyleUtil.IMAGELOCAL)){
-                    new ShareAction(ShareDetailActivity.this).withMedia(imagelocal )
+                if (styles.get(position).equals(StyleUtil.IMAGELOCAL)) {
+                    new ShareAction(ShareDetailActivity.this).withMedia(imagelocal)
                             .setPlatform(share_media)
                             .setCallback(shareListener).share();
-                }else if (styles.get(position).equals(StyleUtil.IMAGEURL)){
-                    new ShareAction(ShareDetailActivity.this).withMedia(imageurl )
+                } else if (styles.get(position).equals(StyleUtil.IMAGEURL)) {
+                    new ShareAction(ShareDetailActivity.this).withMedia(imageurl)
                             .setPlatform(share_media)
                             .setCallback(shareListener).share();
-                }else if (styles.get(position).equals(StyleUtil.TEXT)){
+                } else if (styles.get(position).equals(StyleUtil.TEXT)) {
                     new ShareAction(ShareDetailActivity.this).withText(Defaultcontent.text)
                             .setPlatform(share_media)
                             .setCallback(shareListener).share();
-                }else if (styles.get(position).equals(StyleUtil.TEXTANDIMAGE)){
-                    new ShareAction(ShareDetailActivity.this).withText(Defaultcontent.text)
-                            .withMedia(imagelocal)
+                } else if (styles.get(position).equals(StyleUtil.TEXTANDIMAGE)) {
+                    new ShareAction(ShareDetailActivity.this).withText(Defaultcontent.text).withMedia(imagelocal)
                             .setPlatform(share_media)
                             .setCallback(shareListener).share();
-                }else if (styles.get(position).equals(StyleUtil.WEB11)
-                        ||styles.get(position).equals(StyleUtil.WEB00)
-                        ||styles.get(position).equals(StyleUtil.WEB10)
-                        ||styles.get(position).equals(StyleUtil.WEB01)){
-                    new ShareAction(ShareDetailActivity.this)
-                            .withMedia(web)
+                } else if (styles.get(position).equals(StyleUtil.WEB11)
+                        || styles.get(position).equals(StyleUtil.WEB00)
+                        || styles.get(position).equals(StyleUtil.WEB10)
+                        || styles.get(position).equals(StyleUtil.WEB01)) {
+                    new ShareAction(ShareDetailActivity.this).withMedia(web)
                             .setPlatform(share_media)
                             .setCallback(shareListener).share();
-                }else if (styles.get(position).equals(StyleUtil.MUSIC11)
-                        ||styles.get(position).equals(StyleUtil.MUSIC00)
-                        ||styles.get(position).equals(StyleUtil.MUSIC10)
-                        ||styles.get(position).equals(StyleUtil.MUSIC01)){
+                } else if (styles.get(position).equals(StyleUtil.MUSIC11)
+                        || styles.get(position).equals(StyleUtil.MUSIC00)
+                        || styles.get(position).equals(StyleUtil.MUSIC10)
+                        || styles.get(position).equals(StyleUtil.MUSIC01)) {
                     new ShareAction(ShareDetailActivity.this).withMedia(music)
                             .setPlatform(share_media)
                             .setCallback(shareListener).share();
-                }else if (styles.get(position).equals(StyleUtil.VIDEO11)
-                        ||styles.get(position).equals(StyleUtil.VIDEO00)
-                ||styles.get(position).equals(StyleUtil.VIDEO01)
-                ||styles.get(position).equals(StyleUtil.VIDEO10)){
+                } else if (styles.get(position).equals(StyleUtil.VIDEO11)
+                        || styles.get(position).equals(StyleUtil.VIDEO00)
+                        || styles.get(position).equals(StyleUtil.VIDEO01)
+                        || styles.get(position).equals(StyleUtil.VIDEO10)) {
                     new ShareAction(ShareDetailActivity.this).withMedia(video)
                             .setPlatform(share_media)
                             .setCallback(shareListener).share();
-                }else if (styles.get(position).equals(StyleUtil.EMOJI)){
-                    new ShareAction(ShareDetailActivity.this)
-                            .withMedia(emoji)
+                } else if (styles.get(position).equals(StyleUtil.EMOJI)) {
+                    new ShareAction(ShareDetailActivity.this).withMedia(emoji)
                             .setPlatform(share_media)
                             .setCallback(shareListener).share();
-                }else if (styles.get(position).equals(StyleUtil.FILE)){
-                    new ShareAction(ShareDetailActivity.this)
-                            .withFile(file)
-                            .withText(Defaultcontent.text)
-                            .withSubject(Defaultcontent.title)
+                } else if (styles.get(position).equals(StyleUtil.FILE)) {
+                    new ShareAction(ShareDetailActivity.this).withFile(file).withText(Defaultcontent.text).withSubject(Defaultcontent.title)
                             .setPlatform(share_media)
                             .setCallback(shareListener).share();
-                }else if (styles.get(position).equals(StyleUtil.MINAPP)){
+                } else if (styles.get(position).equals(StyleUtil.MINAPP)) {
+                    // 微信小程序分享
                     UMMin umMin = new UMMin(Defaultcontent.url);
                     umMin.setThumb(imagelocal);
                     umMin.setTitle(Defaultcontent.title);
                     umMin.setDescription(Defaultcontent.text);
                     umMin.setPath("pages/page10007/page10007");
                     umMin.setUserName("gh_3ac2059ac66f");
-                    new ShareAction(ShareDetailActivity.this)
-                         .withMedia(umMin)
+                    new ShareAction(ShareDetailActivity.this).withMedia(umMin)
                             .setPlatform(share_media)
                             .setCallback(shareListener).share();
                 }
             }
         });
-        ((TextView)findViewById(R.id.umeng_title)).setText(share_media.toString()+"选择分享类型");
+
+        // 设置界面标题和返回按钮
+        ((TextView) findViewById(R.id.umeng_title)).setText(share_media.toString() + "选择分享类型");
         findViewById(R.id.umeng_back).setVisibility(View.VISIBLE);
         findViewById(R.id.umeng_back).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,8 +148,8 @@ public class ShareDetailActivity extends Activity {
                 finish();
             }
         });
-
     }
+
     private UMShareListener shareListener = new UMShareListener() {
         @Override
         public void onStart(SHARE_MEDIA platform) {
@@ -157,39 +158,43 @@ public class ShareDetailActivity extends Activity {
 
         @Override
         public void onResult(SHARE_MEDIA platform) {
-            Toast.makeText(ShareDetailActivity.this,"成功了", Toast.LENGTH_LONG).show();
+            Toast.makeText(ShareDetailActivity.this, "成功了", Toast.LENGTH_LONG).show();
             SocializeUtils.safeCloseDialog(dialog);
         }
 
         @Override
         public void onError(SHARE_MEDIA platform, Throwable t) {
             SocializeUtils.safeCloseDialog(dialog);
-            Toast.makeText(ShareDetailActivity.this,"失败"+t.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(ShareDetailActivity.this, "失败" + t.getMessage(), Toast.LENGTH_LONG).show();
         }
 
         @Override
         public void onCancel(SHARE_MEDIA platform) {
             SocializeUtils.safeCloseDialog(dialog);
-            Toast.makeText(ShareDetailActivity.this,"取消了", Toast.LENGTH_LONG).show();
+            Toast.makeText(ShareDetailActivity.this, "取消了", Toast.LENGTH_LONG).show();
 
         }
     };
-    private void initStyles(SHARE_MEDIA share_media){
+
+    /**
+     * 方法描述: 设置各个平台能分享的形式
+     */
+    private void initStyles(SHARE_MEDIA share_media) {
         styles.clear();
-        if (share_media == SHARE_MEDIA.QQ){
+        if (share_media == SHARE_MEDIA.QQ) {
             styles.add(StyleUtil.IMAGELOCAL);
             styles.add(StyleUtil.IMAGEURL);
             styles.add(StyleUtil.WEB11);
             styles.add(StyleUtil.MUSIC11);
             styles.add(StyleUtil.VIDEO11);
-        }else if (share_media == SHARE_MEDIA.QZONE){
+        } else if (share_media == SHARE_MEDIA.QZONE) {
             styles.add(StyleUtil.TEXT);
             styles.add(StyleUtil.IMAGELOCAL);
             styles.add(StyleUtil.IMAGEURL);
             styles.add(StyleUtil.WEB11);
             styles.add(StyleUtil.MUSIC11);
             styles.add(StyleUtil.VIDEO11);
-        }else if (share_media == SHARE_MEDIA.SINA){
+        } else if (share_media == SHARE_MEDIA.SINA) {
             styles.add(StyleUtil.TEXT);
             styles.add(StyleUtil.TEXTANDIMAGE);
             styles.add(StyleUtil.IMAGELOCAL);
@@ -197,7 +202,7 @@ public class ShareDetailActivity extends Activity {
             styles.add(StyleUtil.WEB11);
             styles.add(StyleUtil.MUSIC11);
             styles.add(StyleUtil.VIDEO11);
-        }else if (share_media == SHARE_MEDIA.WEIXIN){
+        } else if (share_media == SHARE_MEDIA.WEIXIN) {
             styles.add(StyleUtil.TEXT);
             styles.add(StyleUtil.IMAGELOCAL);
             styles.add(StyleUtil.IMAGEURL);
@@ -206,31 +211,28 @@ public class ShareDetailActivity extends Activity {
             styles.add(StyleUtil.VIDEO11);
             styles.add(StyleUtil.EMOJI);
             styles.add(StyleUtil.MINAPP);
-        }
-        else if (share_media == SHARE_MEDIA.WEIXIN_CIRCLE){
+        } else if (share_media == SHARE_MEDIA.WEIXIN_CIRCLE) {
             styles.add(StyleUtil.TEXT);
             styles.add(StyleUtil.IMAGELOCAL);
             styles.add(StyleUtil.IMAGEURL);
             styles.add(StyleUtil.WEB11);
             styles.add(StyleUtil.MUSIC11);
             styles.add(StyleUtil.VIDEO11);
-        }
-        else if (share_media == SHARE_MEDIA.WEIXIN_FAVORITE){
+        } else if (share_media == SHARE_MEDIA.WEIXIN_FAVORITE) {
             styles.add(StyleUtil.TEXT);
             styles.add(StyleUtil.IMAGELOCAL);
             styles.add(StyleUtil.IMAGEURL);
             styles.add(StyleUtil.WEB11);
             styles.add(StyleUtil.MUSIC11);
             styles.add(StyleUtil.VIDEO11);
-
-        }  else if (share_media == SHARE_MEDIA.TENCENT){
+        } else if (share_media == SHARE_MEDIA.TENCENT) {
             styles.add(StyleUtil.TEXT);
             styles.add(StyleUtil.IMAGELOCAL);
             styles.add(StyleUtil.IMAGEURL);
             styles.add(StyleUtil.WEB11);
             styles.add(StyleUtil.MUSIC11);
             styles.add(StyleUtil.VIDEO11);
-        } else if (share_media == SHARE_MEDIA.DOUBAN){
+        } else if (share_media == SHARE_MEDIA.DOUBAN) {
             styles.add(StyleUtil.TEXT);
             styles.add(StyleUtil.TEXTANDIMAGE);
             styles.add(StyleUtil.IMAGELOCAL);
@@ -238,7 +240,7 @@ public class ShareDetailActivity extends Activity {
             styles.add(StyleUtil.WEB11);
             styles.add(StyleUtil.MUSIC11);
             styles.add(StyleUtil.VIDEO11);
-        }else if (share_media == SHARE_MEDIA.RENREN){
+        } else if (share_media == SHARE_MEDIA.RENREN) {
             styles.add(StyleUtil.TEXT);
             styles.add(StyleUtil.TEXTANDIMAGE);
             styles.add(StyleUtil.IMAGELOCAL);
@@ -246,182 +248,190 @@ public class ShareDetailActivity extends Activity {
             styles.add(StyleUtil.WEB11);
             styles.add(StyleUtil.MUSIC11);
             styles.add(StyleUtil.VIDEO11);
-        }else if (share_media == SHARE_MEDIA.ALIPAY){
+        } else if (share_media == SHARE_MEDIA.ALIPAY) {
             styles.add(StyleUtil.TEXT);
             styles.add(StyleUtil.IMAGELOCAL);
             styles.add(StyleUtil.IMAGEURL);
             styles.add(StyleUtil.WEB11);
             styles.add(StyleUtil.MUSIC11);
             styles.add(StyleUtil.VIDEO11);
-        }else if (share_media == SHARE_MEDIA.FACEBOOK){
+        } else if (share_media == SHARE_MEDIA.FACEBOOK) {
             styles.add(StyleUtil.IMAGELOCAL);
             styles.add(StyleUtil.IMAGEURL);
             styles.add(StyleUtil.WEB11);
             styles.add(StyleUtil.VIDEO11);
-        }else if (share_media == SHARE_MEDIA.FACEBOOK_MESSAGER){
+        } else if (share_media == SHARE_MEDIA.FACEBOOK_MESSAGER) {
             styles.add(StyleUtil.IMAGELOCAL);
             styles.add(StyleUtil.IMAGEURL);
             styles.add(StyleUtil.WEB11);
             styles.add(StyleUtil.VIDEO11);
-        }else if (share_media == SHARE_MEDIA.TWITTER){
+        } else if (share_media == SHARE_MEDIA.TWITTER) {
             styles.add(StyleUtil.IMAGELOCAL);
             styles.add(StyleUtil.IMAGEURL);
             styles.add(StyleUtil.TEXT);
             styles.add(StyleUtil.TEXTANDIMAGE);
-        }else if (share_media == SHARE_MEDIA.EMAIL){
+        } else if (share_media == SHARE_MEDIA.EMAIL) {
             styles.add(StyleUtil.IMAGELOCAL);
             styles.add(StyleUtil.IMAGEURL);
             styles.add(StyleUtil.TEXT);
             styles.add(StyleUtil.TEXTANDIMAGE);
-        }else if (share_media == SHARE_MEDIA.SMS){
+        } else if (share_media == SHARE_MEDIA.SMS) {
             styles.add(StyleUtil.IMAGELOCAL);
             styles.add(StyleUtil.IMAGEURL);
             styles.add(StyleUtil.TEXT);
             styles.add(StyleUtil.TEXTANDIMAGE);
-        }else if (share_media == SHARE_MEDIA.YIXIN){
-            styles.add(StyleUtil.TEXT);
-            styles.add(StyleUtil.IMAGELOCAL);
-            styles.add(StyleUtil.IMAGEURL);
-            styles.add(StyleUtil.WEB11);
-            styles.add(StyleUtil.MUSIC11);
-            styles.add(StyleUtil.VIDEO11);
-        }else if (share_media == SHARE_MEDIA.YIXIN_CIRCLE){
+        } else if (share_media == SHARE_MEDIA.YIXIN) {
             styles.add(StyleUtil.TEXT);
             styles.add(StyleUtil.IMAGELOCAL);
             styles.add(StyleUtil.IMAGEURL);
             styles.add(StyleUtil.WEB11);
             styles.add(StyleUtil.MUSIC11);
             styles.add(StyleUtil.VIDEO11);
-        }else if (share_media == SHARE_MEDIA.LAIWANG){
-
-//            styles.add(StyleUtil.IMAGELOCAL);
-//            styles.add(StyleUtil.IMAGEURL);
-            styles.add(StyleUtil.WEB11);
-            styles.add(StyleUtil.MUSIC11);
-            styles.add(StyleUtil.VIDEO11);
-        }else if (share_media == SHARE_MEDIA.LAIWANG_DYNAMIC){
-//
-//            styles.add(StyleUtil.IMAGELOCAL);
-//            styles.add(StyleUtil.IMAGEURL);
-            styles.add(StyleUtil.WEB11);
-            styles.add(StyleUtil.MUSIC11);
-            styles.add(StyleUtil.VIDEO11);
-        }else if (share_media == SHARE_MEDIA.INSTAGRAM){
-            styles.add(StyleUtil.IMAGELOCAL);
-            styles.add(StyleUtil.IMAGEURL);
-        }else if (share_media == SHARE_MEDIA.PINTEREST){
-            styles.add(StyleUtil.IMAGELOCAL);
-            styles.add(StyleUtil.IMAGEURL);
-        }else if (share_media == SHARE_MEDIA.TUMBLR){
+        } else if (share_media == SHARE_MEDIA.YIXIN_CIRCLE) {
             styles.add(StyleUtil.TEXT);
             styles.add(StyleUtil.IMAGELOCAL);
-            styles.add(StyleUtil.IMAGEURL);
-
-        }else if (share_media == SHARE_MEDIA.LINE){
-            styles.add(StyleUtil.TEXT);
-            styles.add(StyleUtil.IMAGELOCAL);
-            styles.add(StyleUtil.IMAGEURL);
-
-        }else if (share_media == SHARE_MEDIA.WHATSAPP){
-            styles.add(StyleUtil.TEXT);
-            styles.add(StyleUtil.IMAGELOCAL);
-            styles.add(StyleUtil.IMAGEURL);
-            styles.add(StyleUtil.TEXTANDIMAGE);
-        }else if (share_media == SHARE_MEDIA.KAKAO){
-            styles.add(StyleUtil.TEXT);
-            styles.add(StyleUtil.IMAGELOCAL);
-            styles.add(StyleUtil.IMAGEURL);
-            styles.add(StyleUtil.TEXTANDIMAGE);
-        }else if (share_media == SHARE_MEDIA.GOOGLEPLUS){
-            styles.add(StyleUtil.TEXT);
-            styles.add(StyleUtil.IMAGELOCAL);
-            styles.add(StyleUtil.IMAGEURL);
-            styles.add(StyleUtil.TEXTANDIMAGE);
-        }else if (share_media == SHARE_MEDIA.EVERNOTE){
-            styles.add(StyleUtil.TEXT);
-            styles.add(StyleUtil.IMAGELOCAL);
-            styles.add(StyleUtil.IMAGEURL);
-            styles.add(StyleUtil.TEXTANDIMAGE);
-        }else if (share_media == SHARE_MEDIA.YNOTE){
-            styles.add(StyleUtil.TEXT);
-            styles.add(StyleUtil.IMAGELOCAL);
-            styles.add(StyleUtil.IMAGEURL);
-            styles.add(StyleUtil.TEXTANDIMAGE);
-        }else if (share_media == SHARE_MEDIA.FLICKR){
-
-            styles.add(StyleUtil.IMAGELOCAL);
-            styles.add(StyleUtil.IMAGEURL);
-
-        }else if (share_media == SHARE_MEDIA.LINKEDIN){
-            styles.add(StyleUtil.TEXT);
             styles.add(StyleUtil.IMAGEURL);
             styles.add(StyleUtil.WEB11);
             styles.add(StyleUtil.MUSIC11);
             styles.add(StyleUtil.VIDEO11);
-        }else if (share_media == SHARE_MEDIA.POCKET) {
+        } else if (share_media == SHARE_MEDIA.LAIWANG) {
+            styles.add(StyleUtil.WEB11);
+            styles.add(StyleUtil.MUSIC11);
+            styles.add(StyleUtil.VIDEO11);
+        } else if (share_media == SHARE_MEDIA.LAIWANG_DYNAMIC) {
+            styles.add(StyleUtil.WEB11);
+            styles.add(StyleUtil.MUSIC11);
+            styles.add(StyleUtil.VIDEO11);
+        } else if (share_media == SHARE_MEDIA.INSTAGRAM) {
+            styles.add(StyleUtil.IMAGELOCAL);
+            styles.add(StyleUtil.IMAGEURL);
+        } else if (share_media == SHARE_MEDIA.PINTEREST) {
+            styles.add(StyleUtil.IMAGELOCAL);
+            styles.add(StyleUtil.IMAGEURL);
+        } else if (share_media == SHARE_MEDIA.TUMBLR) {
+            styles.add(StyleUtil.TEXT);
+            styles.add(StyleUtil.IMAGELOCAL);
+            styles.add(StyleUtil.IMAGEURL);
+        } else if (share_media == SHARE_MEDIA.LINE) {
+            styles.add(StyleUtil.TEXT);
+            styles.add(StyleUtil.IMAGELOCAL);
+            styles.add(StyleUtil.IMAGEURL);
+        } else if (share_media == SHARE_MEDIA.WHATSAPP) {
+            styles.add(StyleUtil.TEXT);
+            styles.add(StyleUtil.IMAGELOCAL);
+            styles.add(StyleUtil.IMAGEURL);
+            styles.add(StyleUtil.TEXTANDIMAGE);
+        } else if (share_media == SHARE_MEDIA.KAKAO) {
+            styles.add(StyleUtil.TEXT);
+            styles.add(StyleUtil.IMAGELOCAL);
+            styles.add(StyleUtil.IMAGEURL);
+            styles.add(StyleUtil.TEXTANDIMAGE);
+        } else if (share_media == SHARE_MEDIA.GOOGLEPLUS) {
+            styles.add(StyleUtil.TEXT);
+            styles.add(StyleUtil.IMAGELOCAL);
+            styles.add(StyleUtil.IMAGEURL);
+            styles.add(StyleUtil.TEXTANDIMAGE);
+        } else if (share_media == SHARE_MEDIA.EVERNOTE) {
+            styles.add(StyleUtil.TEXT);
+            styles.add(StyleUtil.IMAGELOCAL);
+            styles.add(StyleUtil.IMAGEURL);
+            styles.add(StyleUtil.TEXTANDIMAGE);
+        } else if (share_media == SHARE_MEDIA.YNOTE) {
+            styles.add(StyleUtil.TEXT);
+            styles.add(StyleUtil.IMAGELOCAL);
+            styles.add(StyleUtil.IMAGEURL);
+            styles.add(StyleUtil.TEXTANDIMAGE);
+        } else if (share_media == SHARE_MEDIA.FLICKR) {
+            styles.add(StyleUtil.IMAGELOCAL);
+            styles.add(StyleUtil.IMAGEURL);
+        } else if (share_media == SHARE_MEDIA.LINKEDIN) {
+            styles.add(StyleUtil.TEXT);
+            styles.add(StyleUtil.IMAGEURL);
+            styles.add(StyleUtil.WEB11);
+            styles.add(StyleUtil.MUSIC11);
+            styles.add(StyleUtil.VIDEO11);
+        } else if (share_media == SHARE_MEDIA.POCKET) {
             styles.add(StyleUtil.WEB00);
-        }else if (share_media == SHARE_MEDIA.FOURSQUARE) {
+        } else if (share_media == SHARE_MEDIA.FOURSQUARE) {
             styles.add(StyleUtil.IMAGELOCAL);
             styles.add(StyleUtil.IMAGEURL);
-        }else if (share_media == SHARE_MEDIA.MORE) {
+        } else if (share_media == SHARE_MEDIA.MORE) {
             styles.add(StyleUtil.TEXT);
             styles.add(StyleUtil.IMAGELOCAL);
             styles.add(StyleUtil.IMAGEURL);
             styles.add(StyleUtil.TEXTANDIMAGE);
-        }else if (share_media == SHARE_MEDIA.DINGTALK) {
+        } else if (share_media == SHARE_MEDIA.DINGTALK) {
             styles.add(StyleUtil.TEXT);
             styles.add(StyleUtil.IMAGELOCAL);
             styles.add(StyleUtil.IMAGEURL);
             styles.add(StyleUtil.WEB11);
             styles.add(StyleUtil.MUSIC11);
             styles.add(StyleUtil.VIDEO11);
-        }else if (share_media == SHARE_MEDIA.VKONTAKTE) {
+        } else if (share_media == SHARE_MEDIA.VKONTAKTE) {
             styles.add(StyleUtil.TEXT);
             styles.add(StyleUtil.IMAGELOCAL);
             styles.add(StyleUtil.IMAGEURL);
             styles.add(StyleUtil.WEB11);
             styles.add(StyleUtil.MUSIC11);
             styles.add(StyleUtil.VIDEO11);
-        }else if (share_media == SHARE_MEDIA.DROPBOX) {
+        } else if (share_media == SHARE_MEDIA.DROPBOX) {
             styles.add(StyleUtil.IMAGELOCAL);
             styles.add(StyleUtil.IMAGEURL);
         }
 
     }
-    private void initMedia(){
+
+    private void initMedia() {
+        // 在图片上的水印
         UMImageMark umImageMark = new UMImageMark();
         umImageMark.setGravity(Gravity.BOTTOM | Gravity.RIGHT);
         umImageMark.setMarkBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.zhq_umsocial_defaultwatermark));
-        imageurl = new UMImage(this,Defaultcontent.imageurl);
+
+        // 图片分享 网络的形式
+        imageurl = new UMImage(this, Defaultcontent.imageurl);
         imageurl.setThumb(new UMImage(this, R.drawable.zhq_thumb));
-       // imagelocal = new UMImage(this,R.drawable.logo,umImageMark);
-        File aa = new File(Environment.getExternalStorageDirectory(),"logo.png");
+        // imagelocal = new UMImage(this,R.drawable.logo,umImageMark);
+
+        // TODO ????????????
+        File aa = new File(Environment.getExternalStorageDirectory(), "logo.png");
+
+        // 图片分享 apk包中固定的形式
         imagelocal = new UMImage(this, R.drawable.zhq_logo);
         imagelocal.setThumb(new UMImage(this, R.drawable.zhq_thumb));
+
+        // 音乐分享
         music = new UMusic(Defaultcontent.musicurl);
-        video = new UMVideo(Defaultcontent.videourl);
-        web = new UMWeb(Defaultcontent.url);
-        web.setTitle("This is web title");
-        web.setThumb(new UMImage(this, R.drawable.zhq_thumb));
-        web.setDescription("my description");
         music.setTitle("This is music title");
         music.setThumb(new UMImage(this, R.drawable.zhq_thumb));
         music.setDescription("my description");
         music.setmTargetUrl(Defaultcontent.musicurl);
+
+        // 视频分享
+        video = new UMVideo(Defaultcontent.videourl);
         video.setThumb(new UMImage(this, R.drawable.zhq_thumb));
         video.setTitle("This is video title");
         video.setDescription("my description");
-        emoji = new UMEmoji(this,"http://img5.imgtn.bdimg.com/it/u=2749190246,3857616763&fm=21&gp=0.jpg");
+
+        // 网页分享
+        web = new UMWeb(Defaultcontent.url);
+        web.setTitle("This is web title");
+        web.setThumb(new UMImage(this, R.drawable.zhq_thumb));
+        web.setDescription("my description");
+
+        // 微信好友分享支持Emoji表情
+        emoji = new UMEmoji(this, "http://img5.imgtn.bdimg.com/it/u=2749190246,3857616763&fm=21&gp=0.jpg");
         emoji.setThumb(new UMImage(this, R.drawable.zhq_thumb));
-        file = new File(this.getFilesDir()+"test.txt");
-        if (!file.exists()){
+
+        // TODO ????????????
+        file = new File(this.getFilesDir() + "test.txt");
+        if (!file.exists()) {
             try {
                 file.createNewFile();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        if (SocializeUtils.File2byte(file).length<=0){
+        if (SocializeUtils.File2byte(file).length <= 0) {
             String content = "U-share分享";
             byte[] contentInBytes = content.getBytes();
             try {
@@ -429,7 +439,6 @@ public class ShareDetailActivity extends Activity {
                 fop.write(contentInBytes);
                 fop.flush();
                 fop.close();
-
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -449,7 +458,7 @@ public class ShareDetailActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        UMShareAPI.get(this).onActivityResult(requestCode,resultCode,data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
     }
 
     @Override

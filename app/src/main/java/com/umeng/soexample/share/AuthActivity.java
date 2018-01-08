@@ -29,27 +29,40 @@ import java.util.Map;
 public class AuthActivity extends Activity {
     private ListView listView;
     private AuthAdapter shareAdapter;
-    public ArrayList<SnsPlatform> platforms = new ArrayList<SnsPlatform>();
+
+    public ArrayList<SnsPlatform> platforms = new ArrayList<>();
+
     private SHARE_MEDIA[] list = {SHARE_MEDIA.QQ, SHARE_MEDIA.SINA, SHARE_MEDIA.WEIXIN,
             SHARE_MEDIA.FACEBOOK, SHARE_MEDIA.TWITTER, SHARE_MEDIA.LINKEDIN, SHARE_MEDIA.DOUBAN, SHARE_MEDIA.RENREN, SHARE_MEDIA.KAKAO,
             SHARE_MEDIA.VKONTAKTE, SHARE_MEDIA.DROPBOX};
-    private ProgressDialog dialog;
+    /**
+     * 变量的描述: 正在加载的对话框
+     */
+    private ProgressDialog loadingDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.zhq_umeng_auth_share);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            // 安卓5.0以上设置状态栏沉浸式
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(getResources().getColor(R.color.umeng_blue));
-
         }
-        dialog = new ProgressDialog(this);
+
+        setContentView(R.layout.zhq_umeng_auth_share);
+
+        loadingDialog = new ProgressDialog(this);
+
         listView = (ListView) findViewById(R.id.list);
+
         initPlatforms();
+
         shareAdapter = new AuthAdapter(this, platforms);
+
         listView.setAdapter(shareAdapter);
 
+        // 设置标题和返回按钮
         ((TextView) findViewById(R.id.umeng_title)).setText(R.string.umeng_auth_title);
         findViewById(R.id.umeng_back).setVisibility(View.VISIBLE);
         findViewById(R.id.umeng_back).setOnClickListener(new View.OnClickListener() {
@@ -62,28 +75,28 @@ public class AuthActivity extends Activity {
         UMShareAPI.get(this).fetchAuthResultWithBundle(this, savedInstanceState, new UMAuthListener() {
             @Override
             public void onStart(SHARE_MEDIA platform) {
-                SocializeUtils.safeShowDialog(dialog);
+                SocializeUtils.safeShowDialog(loadingDialog);
             }
 
             @Override
             public void onComplete(SHARE_MEDIA platform, int action, Map<String, String> data) {
                 Toast.makeText(getApplicationContext(), "onRestoreInstanceState Authorize succeed", Toast.LENGTH_SHORT).show();
                 shareAdapter.notifyDataSetChanged();
-                SocializeUtils.safeCloseDialog(dialog);
+                SocializeUtils.safeCloseDialog(loadingDialog);
             }
 
             @Override
             public void onError(SHARE_MEDIA platform, int action, Throwable t) {
                 Toast.makeText(getApplicationContext(), "onRestoreInstanceState Authorize onError", Toast.LENGTH_SHORT).show();
                 shareAdapter.notifyDataSetChanged();
-                SocializeUtils.safeCloseDialog(dialog);
+                SocializeUtils.safeCloseDialog(loadingDialog);
             }
 
             @Override
             public void onCancel(SHARE_MEDIA platform, int action) {
                 Toast.makeText(getApplicationContext(), "onRestoreInstanceState Authorize onCancel", Toast.LENGTH_SHORT).show();
                 shareAdapter.notifyDataSetChanged();
-                SocializeUtils.safeCloseDialog(dialog);
+                SocializeUtils.safeCloseDialog(loadingDialog);
             }
         });
     }

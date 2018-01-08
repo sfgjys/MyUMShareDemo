@@ -24,7 +24,7 @@ import java.util.ArrayList;
 public class ShareActivity extends Activity {
     private ListView listView;
     private ShareAdapter shareAdapter;
-    public ArrayList<SnsPlatform> platforms = new ArrayList<SnsPlatform>();
+    public ArrayList<SnsPlatform> platforms = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +44,7 @@ public class ShareActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(ShareActivity.this,ShareDetailActivity.class);
+                // 将某个平台的对象传递给分享详情界面
                 intent.putExtra("platform",platforms.get(position).mPlatform);
                 ShareActivity.this.startActivity(intent);
             }

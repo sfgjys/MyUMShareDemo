@@ -39,17 +39,18 @@ public class GetInfoActivity extends Activity {
         setContentView(R.layout.zhq_umeng_share_share);
         listView = (ListView) findViewById(R.id.list);
         initPlatforms();
-        shareAdapter  = new ShareAdapter(this,platforms);
+        shareAdapter = new ShareAdapter(this, platforms);
         listView.setAdapter(shareAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(GetInfoActivity.this,InfoDetailActivity.class);
-                intent.putExtra("platform",platforms.get(position).mPlatform);
+                Intent intent = new Intent(GetInfoActivity.this, InfoDetailActivity.class);
+                // 传递某个平台的对象
+                intent.putExtra("platform", platforms.get(position).mPlatform);
                 GetInfoActivity.this.startActivity(intent);
             }
         });
-        ((TextView)findViewById(R.id.umeng_title)).setText(R.string.umeng_getinfo_title);
+        ((TextView) findViewById(R.id.umeng_title)).setText(R.string.umeng_getinfo_title);
         findViewById(R.id.umeng_back).setVisibility(View.VISIBLE);
         findViewById(R.id.umeng_back).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,10 +59,11 @@ public class GetInfoActivity extends Activity {
             }
         });
     }
-    private void initPlatforms(){
+
+    private void initPlatforms() {
         platforms.clear();
-        for (SHARE_MEDIA e :list) {
-            if (!e.toString().equals(SHARE_MEDIA.GENERIC.toString())){
+        for (SHARE_MEDIA e : list) {
+            if (!e.toString().equals(SHARE_MEDIA.GENERIC.toString())) {
                 platforms.add(e.toSnsPlatform());
             }
         }

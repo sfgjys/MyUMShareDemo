@@ -35,6 +35,7 @@ public class InfoDetailActivity extends Activity {
             window.setStatusBarColor(getResources().getColor(R.color.umeng_blue));
         }
         setContentView(R.layout.zhq_infodetail_share);
+        // 获取了传递过来的某个平台的对象
         share_media = (SHARE_MEDIA) getIntent().getSerializableExtra("platform");
         ((TextView) findViewById(R.id.umeng_title)).setText(R.string.umeng_getinfo_title);
         findViewById(R.id.umeng_back).setVisibility(View.VISIBLE);
@@ -50,7 +51,7 @@ public class InfoDetailActivity extends Activity {
         findViewById(R.id.getbtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                // 开启某个平台的授权并获取用户信息
                 UMShareAPI.get(InfoDetailActivity.this).getPlatformInfo(InfoDetailActivity.this, share_media, authListener);
             }
         });
@@ -64,13 +65,16 @@ public class InfoDetailActivity extends Activity {
             @Override
             public void onClick(View view) {
                 android.text.ClipboardManager clipboardManager = (android.text.ClipboardManager) getSystemService(
-                    Context.CLIPBOARD_SERVICE);
+                        Context.CLIPBOARD_SERVICE);
                 clipboardManager.setText(result.getText());
                 Toast.makeText(InfoDetailActivity.this, "复制成功", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
+    /**
+     * 变量的描述: 监听授权获取用户信息的操作结果
+     */
     UMAuthListener authListener = new UMAuthListener() {
         @Override
         public void onStart(SHARE_MEDIA platform) {
