@@ -18,19 +18,20 @@ import com.umeng.soexample.R;
  */
 public class CheckActivity extends Activity {
     private LinearLayout list;
-    private int checkstyle =0;
+    private int checkstyle = 0;
     private EditText ed;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            // 安卓5.0以上设置状态栏沉浸式
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(getResources().getColor(R.color.umeng_blue));
-
         }
         setContentView(R.layout.zhq_umeng_check_share);
-        ((TextView)findViewById(R.id.umeng_title)).setText(R.string.umeng_check_title);
+        ((TextView) findViewById(R.id.umeng_title)).setText(R.string.umeng_check_title);
         findViewById(R.id.umeng_back).setVisibility(View.VISIBLE);
         list = (LinearLayout) findViewById(R.id.list);
         findViewById(R.id.umeng_back).setOnClickListener(new View.OnClickListener() {
@@ -43,9 +44,9 @@ public class CheckActivity extends Activity {
         ed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(list.getVisibility()!= View.VISIBLE){
+                if (list.getVisibility() != View.VISIBLE) {
                     list.setVisibility(View.VISIBLE);
-                }else {
+                } else {
                     list.setVisibility(View.GONE);
                 }
             }
@@ -53,22 +54,31 @@ public class CheckActivity extends Activity {
         findViewById(R.id.checkbtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              if (checkstyle ==1){
-                  UmengTool.getSignature(CheckActivity.this);
-              }else if (checkstyle ==2 ){
-                  UmengTool.checkSina(CheckActivity.this);
-              }else if (checkstyle ==3 ){
-                  UmengTool.checkWx(CheckActivity.this);
-              }else if (checkstyle ==4 ){
-                  UmengTool.checkAlipay(CheckActivity.this);
-              }else if (checkstyle ==5){
-                  UmengTool.checkQQ(CheckActivity.this);
-              }else if (checkstyle ==6){
-                  UmengTool.checkFacebook(CheckActivity.this);
-              }
-              else if (checkstyle ==7){
-                  UmengTool.checkVK(CheckActivity.this);
-              }
+                // **************************************************** 自检工具核心API ****************************************************
+                // 检查结果：API会以对话框的形式展示
+                if (checkstyle == 1) {
+                    // 检查签名
+                    UmengTool.getSignature(CheckActivity.this);
+                } else if (checkstyle == 2) {
+                    // 检查新浪
+                    UmengTool.checkSina(CheckActivity.this);
+                } else if (checkstyle == 3) {
+                    // 检查微信
+                    UmengTool.checkWx(CheckActivity.this);
+                } else if (checkstyle == 4) {
+                    // 检查支付宝
+                    UmengTool.checkAlipay(CheckActivity.this);
+                } else if (checkstyle == 5) {
+                    // 检查QQ
+                    UmengTool.checkQQ(CheckActivity.this);
+                } else if (checkstyle == 6) {
+                    // 检查Facebook
+                    UmengTool.checkFacebook(CheckActivity.this);
+                } else if (checkstyle == 7) {
+                    // 检查VK
+                    UmengTool.checkVK(CheckActivity.this);
+                }
+                // **************************************************** 自检工具核心API ****************************************************
             }
         });
         findViewById(R.id.checksign).setOnClickListener(new View.OnClickListener() {
